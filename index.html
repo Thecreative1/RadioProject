@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Rádios Portuguesas Retro</title>
+  <script src="https://unpkg.com/webamp"></script>
+  <script src="https://unpkg.com/butterchurn"></script>
+  <script src="https://unpkg.com/butterchurn-presets"></script>
+  <script src="https://unpkg.com/butterchurn-presets/lib/butterchurnPresets.min.js"></script>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    #winamp-container {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      margin-top: 1rem;
+      border: 2px solid #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>📻 Rádios Portuguesas com Estilo Winamp</h1>
+  <div id="winamp-container"></div>
+
+  <script>
+    const webamp = new Webamp({
+      initialTracks: [
+        {
+          metaData: {
+            artist: "RFM",
+            title: "RFM ao Vivo"
+          },
+          url: "https://21223.live.streamtheworld.com/RFMAAC.aac",
+          duration: 0
+        },
+        {
+          metaData: {
+            artist: "Antena 3",
+            title: "Antena 3 ao Vivo"
+          },
+          url: "https://streaming-live.rtp.pt/liveradio/antena380a/playlist.m3u8",
+          duration: 0
+        }
+      ],
+      skin: {
+        url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/Winamp5-Milkyway.wsz"
+      }
+    });
+
+    webamp.renderWhenReady(document.getElementById("winamp-container")).then(() => {
+      webamp.enableVisualizer({
+        getAudioNode: webamp.getAudioNode.bind(webamp),
+        butterchurnOptions: {
+          width: 800,
+          height: 600,
+        },
+        preset: butterchurnPresets.presets["Flexi + fishbrain - flexi's picking flowers"],
+        presets: butterchurnPresets.presets,
+      });
+    });
+  </script>
+</body>
+</html>
