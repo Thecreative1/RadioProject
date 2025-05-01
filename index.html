@@ -79,7 +79,7 @@
       selector.addEventListener("change", () => {
         const index = parseInt(selector.value);
         webamp.setTracks([trackList[index]]);
-        webamp.playTrack(trackList[index]);
+        webamp.play();
       });
     });
   </script>
