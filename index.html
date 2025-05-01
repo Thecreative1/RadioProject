@@ -61,9 +61,9 @@
     }));
 
     const webamp = new Webamp({
-      initialTracks: trackList,
+      initialTracks: [trackList[0]], // Começa com a primeira rádio
       initialSkin: {
-        url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/Milkyway.wsz"
+        url: "https://cdn.jsdelivr.net/npm/@webamp/skins@1.2.0/skins/Milkyway.wsz"
       },
       enableButterchurn: true,
       __butterchurnOptions: {
@@ -76,9 +76,17 @@
 
     webamp.renderWhenReady(document.getElementById("winamp-container")).then(() => {
       const selector = document.getElementById("radio-selector");
+
       selector.addEventListener("change", () => {
         const index = parseInt(selector.value);
         webamp.setTracks([trackList[index]]);
+        setTimeout(() => {
+          webamp.play();
+        }, 500); // Pequeno atraso para garantir carregamento do stream
+      });
+
+      // Inicia reprodução automática após interação (Chrome policy)
+      selector.addEventListener("click", () => {
         webamp.play();
       });
     });
