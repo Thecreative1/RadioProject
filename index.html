@@ -2,74 +2,84 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Rádios Portuguesas Retro</title>
+  <title>Rádios Portuguesas - Webamp Retro</title>
   <script src="https://unpkg.com/webamp"></script>
   <script src="https://unpkg.com/butterchurn"></script>
   <script src="https://unpkg.com/butterchurn-presets"></script>
-  <script src="https://unpkg.com/butterchurn-presets/lib/butterchurnPresets.min.js"></script>
+  <script src="https://unpkg.com/webamp-butterchurn"></script>
   <style>
     body {
-      background-color: #1a1a1a;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      background-color: black;
       margin: 0;
-      padding: 2rem;
-    }
-    h1 {
-      margin-bottom: 1rem;
+      overflow: hidden;
     }
     #winamp-container {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      z-index: 10;
     }
-    canvas {
-      margin-top: 1rem;
-      border: 2px solid #444;
+    #radio-selector {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      z-index: 20;
+      font-size: 16px;
+      padding: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>📻 Rádios Portuguesas com Estilo Winamp</h1>
+  <select id="radio-selector">
+    <option value="0">Antena 1</option>
+    <option value="1">Rádio Comercial</option>
+    <option value="2">Rádio Nova Era</option>
+  </select>
+
   <div id="winamp-container"></div>
 
   <script>
-    const webamp = new Webamp({
-      initialTracks: [
-        {
-          metaData: {
-            artist: "RFM",
-            title: "RFM ao Vivo"
-          },
-          url: "https://21223.live.streamtheworld.com/RFMAAC.aac",
-          duration: 0
-        },
-        {
-          metaData: {
-            artist: "Antena 3",
-            title: "Antena 3 ao Vivo"
-          },
-          url: "https://streaming-live.rtp.pt/liveradio/antena380a/playlist.m3u8",
-          duration: 0
-        }
-      ],
-      skin: {
-        url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/Winamp5-Milkyway.wsz"
+    const radioStations = [
+      {
+        name: "Antena 1",
+        url: "http://antena1-live.rtp.pt/antena180a.mp3"
+      },
+      {
+        name: "Rádio Comercial",
+        url: "https://mcrscast.mcr.iol.pt/comercial.mp3"
+      },
+      {
+        name: "Rádio Nova Era",
+        url: "http://centova.radionovaera.pt:9470/stream"
       }
+    ];
+
+    const trackList = radioStations.map(station => ({
+      metaData: { title: station.name },
+      url: station.url,
+      duration: 0
+    }));
+
+    const webamp = new Webamp({
+      initialTracks: trackList,
+      initialSkin: {
+        url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/Milkyway.wsz"
+      },
+      enableButterchurn: true,
+      __butterchurnOptions: {
+        importButterchurn: () => Promise.resolve(window.butterchurn),
+        getPresets: () => window.butterchurnPresets.getPresets(),
+        butterchurnOpen: true
+      },
+      filePickers: []
     });
 
     webamp.renderWhenReady(document.getElementById("winamp-container")).then(() => {
-      webamp.enableVisualizer({
-        getAudioNode: webamp.getAudioNode.bind(webamp),
-        butterchurnOptions: {
-          width: 800,
-          height: 600,
-        },
-        preset: butterchurnPresets.presets["Flexi + fishbrain - flexi's picking flowers"],
-        presets: butterchurnPresets.presets,
+      const selector = document.getElementById("radio-selector");
+      selector.addEventListener("change", () => {
+        const index = parseInt(selector.value);
+        webamp.setTracks([trackList[index]]);
+        webamp.playTrack(trackList[index]);
       });
     });
   </script>
