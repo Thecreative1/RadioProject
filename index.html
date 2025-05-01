@@ -2,66 +2,56 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Rádios Portuguesas - Webamp Retro</title>
+  <title>Webamp + MilkDrop - Estilo Retro</title>
   <script src="https://unpkg.com/webamp"></script>
   <script src="https://unpkg.com/butterchurn"></script>
   <script src="https://unpkg.com/butterchurn-presets"></script>
   <script src="https://unpkg.com/webamp-butterchurn"></script>
   <style>
     body {
-      background-color: black;
+      background-color: #000;
       margin: 0;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-    #winamp-container {
-      position: absolute;
-      top: 60px;
-      left: 20px;
-      z-index: 10;
+    #container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
     }
-    #radio-selector {
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      z-index: 20;
-      font-size: 16px;
-      padding: 5px;
+    #winamp {
+      width: 275px;
+      height: auto;
+    }
+    #visualizer {
+      width: 640px;
+      height: 480px;
+      border: 2px solid #333;
+      background-color: black;
     }
   </style>
 </head>
 <body>
-  <select id="radio-selector">
-    <option value="0">Antena 1</option>
-    <option value="1">Rádio Comercial</option>
-    <option value="2">Rádio Nova Era</option>
-  </select>
-
-  <div id="winamp-container"></div>
+  <div id="container">
+    <div id="winamp"></div>
+    <canvas id="visualizer" width="640" height="480"></canvas>
+  </div>
 
   <script>
-    const radioStations = [
-      {
-        name: "Antena 1",
-        url: "http://antena1-live.rtp.pt/antena180a.mp3"
-      },
-      {
-        name: "Rádio Comercial",
-        url: "https://mcrscast.mcr.iol.pt/comercial.mp3"
-      },
-      {
-        name: "Rádio Nova Era",
-        url: "http://centova.radionovaera.pt:9470/stream"
-      }
-    ];
-
-    const trackList = radioStations.map(station => ({
-      metaData: { title: station.name },
-      url: station.url,
-      duration: 0
-    }));
+    const visualizerCanvas = document.getElementById("visualizer");
+    let visualizer;
 
     const webamp = new Webamp({
-      initialTracks: [trackList[0]], // Começa com a primeira rádio
+      initialTracks: [
+        {
+          metaData: { artist: "RFM", title: "RFM ao Vivo" },
+          url: "https://21223.live.streamtheworld.com/RFMAAC.aac",
+          duration: 0
+        }
+      ],
       initialSkin: {
         url: "https://cdn.jsdelivr.net/npm/@webamp/skins@1.2.0/skins/Milkyway.wsz"
       },
@@ -69,27 +59,13 @@
       __butterchurnOptions: {
         importButterchurn: () => Promise.resolve(window.butterchurn),
         getPresets: () => window.butterchurnPresets.getPresets(),
-        butterchurnOpen: true
+        butterchurnOpen: true,
+        getVisualizerCanvas: () => visualizerCanvas
       },
       filePickers: []
     });
 
-    webamp.renderWhenReady(document.getElementById("winamp-container")).then(() => {
-      const selector = document.getElementById("radio-selector");
-
-      selector.addEventListener("change", () => {
-        const index = parseInt(selector.value);
-        webamp.setTracks([trackList[index]]);
-        setTimeout(() => {
-          webamp.play();
-        }, 500); // Pequeno atraso para garantir carregamento do stream
-      });
-
-      // Inicia reprodução automática após interação (Chrome policy)
-      selector.addEventListener("click", () => {
-        webamp.play();
-      });
-    });
+    webamp.renderWhenReady(document.getElementById("winamp"));
   </script>
 </body>
 </html>
