@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Winamp com MilkDrop no GitHub Pages</title>
+  <script src="https://unpkg.com/webamp"></script>
+  <script src="https://unpkg.com/butterchurn"></script>
+  <script src="https://unpkg.com/butterchurn-presets"></script>
+  <script src="https://unpkg.com/webamp-butterchurn"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      height: 100vh;
+    }
+    #winamp {
+      margin-top: 20px;
+    }
+    #visualizer {
+      width: 640px;
+      height: 480px;
+      margin-top: 10px;
+      background-color: black;
+      border: 2px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="winamp"></div>
+  <canvas id="visualizer" width="640" height="480"></canvas>
+
+  <script>
+    const visualizerCanvas = document.getElementById("visualizer");
+
+    const webamp = new Webamp({
+      initialTracks: [
+        {
+          metaData: { artist: "RFM", title: "RFM ao Vivo" },
+          url: "https://21223.live.streamtheworld.com/RFMAAC.aac",
+          duration: 0
+        },
+        {
+          metaData: { artist: "Rádio Comercial", title: "Comercial ao Vivo" },
+          url: "https://mcrscast.mcr.iol.pt/comercial.mp3",
+          duration: 0
+        },
+        {
+          metaData: { artist: "Rádio Nova Era", title: "Nova Era ao Vivo" },
+          url: "https://centova.radionovaera.pt:9470/stream",
+          duration: 0
+        }
+      ],
+      initialSkin: {
+        url: "https://raw.githubusercontent.com/Thecreative1/RadioProject/main/Milkyway.wsz"
+      },
+      enableButterchurn: true,
+      __butterchurnOptions: {
+        importButterchurn: () => Promise.resolve(window.butterchurn),
+        getPresets: () => window.butterchurnPresets.getPresets(),
+        butterchurnOpen: true,
+        getVisualizerCanvas: () => visualizerCanvas
+      },
+      filePickers: []
+    });
+
+    webamp.renderWhenReady(document.getElementById("winamp"));
+  </script>
+</body>
+</html>
