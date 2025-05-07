@@ -1,1 +1,2 @@
-// Placeholder for butterchurn.js - replace with real content
+// Replace with the real file from unpkg.com
+// https://unpkg.com/butterchurn/lib/butterchurn.js

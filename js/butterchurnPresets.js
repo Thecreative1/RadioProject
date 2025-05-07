@@ -1,1 +1,2 @@
-// Placeholder for butterchurnPresets.js - replace with real content
+// Replace with the real file from unpkg.com
+// https://unpkg.com/butterchurn-presets/lib/butterchurnPresets.js
