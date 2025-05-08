@@ -3,7 +3,14 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
   <title>Rádios Internacionais com Webamp</title>
+=======
+  <title>Webamp com Visualizações</title>
+  <script src="js/butterchurn.js"></script>
+  <script src="js/butterchurnPresets.js"></script>
+  <script src="js/webamp-butterchurn.min.js"></script>
+>>>>>>> 2562d5c5a4d6717a77c9dbae329ad02b25b0455b
   <script src="https://unpkg.com/webamp"></script>
   <script src="https://unpkg.com/butterchurn"></script>
   <script src="https://unpkg.com/butterchurn-presets"></script>
@@ -161,6 +168,7 @@
     let webampInstance = null;
 
     const webamp = new Webamp({
+<<<<<<< HEAD
       initialTracks: [],
       initialSkin: {
         url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/classic.wsz"
@@ -171,11 +179,28 @@
         getPresets: () => window.butterchurnPresets.getPresets(),
         butterchurnOpen: true,
         getVisualizerCanvas: () => visualizerCanvas
+=======
+      initialTracks: [
+        {
+          metaData: { artist: "RFM", title: "RFM ao Vivo" },
+          url: "https://21223.live.streamtheworld.com/RFMAAC.aac",
+          duration: 0
+        },
+        {
+          metaData: { artist: "Comercial", title: "Comercial ao Vivo" },
+          url: "https://mcrscast.mcr.iol.pt/comercial.mp3",
+          duration: 0
+        }
+      ],
+      initialSkin: {
+        url: "milkyway.wsz"
+>>>>>>> 2562d5c5a4d6717a77c9dbae329ad02b25b0455b
       },
       filePickers: []
     });
 
     webamp.renderWhenReady(document.getElementById("winamp")).then(() => {
+<<<<<<< HEAD
       webampInstance = webamp;
     });
 
@@ -214,6 +239,20 @@
 
       genreTitle.textContent = `🎶 Estás a explorar: ${texto}`;
     }
+=======
+      const visualizer = window.butterchurn.createVisualizer(
+        webamp.getAudioContext(),
+        visualizerCanvas,
+        { width: 640, height: 480 }
+      );
+
+      visualizer.connectAudio(webamp.getAudioNode());
+
+      const presets = window.butterchurnPresets.getPresets();
+      const preset = presets["Flexi, martin + geiss - dedicated to the sherwin maxawow"];
+      visualizer.loadPreset(preset, 0.0);
+    });
+>>>>>>> 2562d5c5a4d6717a77c9dbae329ad02b25b0455b
   </script>
 </body>
 </html>
