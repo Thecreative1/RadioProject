@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -10,12 +9,15 @@
   <script src="https://unpkg.com/webamp-butterchurn"></script>
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      background-color: black;
-      color: #eee;
-      font-family: Arial, sans-serif;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 0;
+  background-color: #000;
+  color: #eee;
+  font-family: Arial, sans-serif;
+}
     body {
       display: flex;
       flex-direction: column;
@@ -24,40 +26,36 @@
     h1 {
       color: #00ffcc;
       margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
-    #visualizer {
-      width: 640px;
-      height: 480px;
-      background: black;
-    }
-    #now-playing {
+    #now-playing, #genre-title {
       font-size: 18px;
       color: #00ffcc;
       margin: 5px 0;
-    }
-    #winamp {
-      width: 100%;
-      height: 0;
-      position: relative;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
     #winamp > div {
-      position: absolute !important;
-      top: 620px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-    }
+  position: fixed !important;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
     .radio-card {
-      background-color: #111;
+      background-color: rgba(0, 0, 0, 0.7);
       border: 1px solid #333;
       border-radius: 10px;
       padding: 15px;
       margin-bottom: 15px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: transform 0.2s, background-color 0.3s;
     }
     .radio-card:hover {
       transform: scale(1.02);
-      background-color: #222;
+      background-color: rgba(34, 34, 34, 0.9);
     }
     .radio-card h3 {
       margin: 0 0 10px 0;
@@ -81,7 +79,7 @@
       color: black;
       border: none;
       padding: 8px 16px;
-      margin: 0 5px;
+      margin: 5px;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
@@ -117,64 +115,99 @@
   </style>
 </head>
 <body>
+  <div id="winamp"></div>
   <h1>🌐 Estações de Rádio Online</h1>
-    <div style="margin: 10px 0;">
+  <div>
     <button class="filter-btn active" onclick="filterRadios('all')">🎧 Todos</button>
     <button class="filter-btn" onclick="filterRadios('rock')">🎸 Rock</button>
     <button class="filter-btn" onclick="filterRadios('jazz')">🎷 Jazz</button>
     <button class="filter-btn" onclick="filterRadios('chill')">🌿 Chill</button>
+    <button class="filter-btn" onclick="filterRadios('pop')">🎶 Pop</button>
+    <button class="filter-btn" onclick="filterRadios('lofi')">🎮 Lo-Fi</button>
+    <button class="filter-btn" onclick="filterRadios('electro')">⚡ Electrónica</button>
+    <button class="filter-btn" onclick="filterRadios('psy')">🌀 Goa / Psytrance</button>
   </div>
-
-  <div id="genre-title" style="margin: 5px 0; font-size: 1.2em; color: #00ffcc;">
-    🎶 Estás a explorar: Todos os géneros
-  </div>
+  <div id="genre-title">🎶 Estás a explorar: Todos os géneros</div>
   <div id="now-playing">🎶 Nenhuma rádio em reprodução</div>
-
-  <div class="genre-columns">
-    <div class="radio-group" data-genre="rock">
-      <h2>🎸 Rock / Alternativo</h2>
-      <div class="radio-card"><h3>Radio Paradise - Rock Mix</h3><button onclick="handleClick(event, 'https://stream.radioparadise.com/rock-128', 'Radio Paradise - Rock Mix')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>Radio Paradise - Mellow Mix</h3><button onclick="handleClick(event, 'https://stream.radioparadise.com/mellow-128', 'Radio Paradise - Mellow Mix')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>Radio Paradise - Main Mix</h3><button onclick="handleClick(event, 'https://stream.radioparadise.com/main-128', 'Radio Paradise - Main Mix')">🎧 Ouvir agora</button></div>
-    </div>
-
-    <div class="radio-group" data-genre="chill">
-      <h2>🌿 Chill / Ambiente</h2>
-      <div class="radio-card"><h3>SomaFM Groove Salad</h3><button onclick="handleClick(event, 'https://ice2.somafm.com/groovesalad-128-mp3', 'SomaFM Groove Salad')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>SomaFM Mission Control</h3><button onclick="handleClick(event, 'https://ice2.somafm.com/missioncontrol-128-mp3', 'SomaFM Mission Control')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>SomaFM Drone Zone</h3><button onclick="handleClick(event, 'https://ice1.somafm.com/dronezone-128-mp3', 'SomaFM Drone Zone')">🎧 Ouvir agora</button></div>
-    </div>
-
-    <div class="radio-group" data-genre="jazz">
-      <h2>🎷 Jazz</h2>
-      <div class="radio-card"><h3>Jazz Radio Classic</h3><button onclick="handleClick(event, 'https://jazz-wr01.ice.infomaniak.ch/jazz-wr01-128.mp3', 'Jazz Radio Classic')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>TSF Jazz (Paris)</h3><button onclick="handleClick(event, 'https://playerservices.streamtheworld.com/api/livestream-redirect/TSFJAZZ.mp3', 'TSF Jazz (Paris)')">🎧 Ouvir agora</button></div>
-      <div class="radio-card"><h3>Jazz & Blues</h3><button onclick="handleClick(event, 'https://jazzblues.ice.infomaniak.ch/jazzblues-128.mp3', 'Jazz & Blues')">🎧 Ouvir agora</button></div>
-    </div>
-  </div>
-
+  <div class="genre-columns" id="radio-groups"></div>
   <div id="winamp"></div>
-
   <script>
-    const visualizerCanvas = document.getElementById("visualizer");
-    const nowPlayingText = document.getElementById("now-playing");
-    let webampInstance = null;
+    const radios = {
+      rock: [
+        ['Radio Paradise - Rock Mix', 'https://stream.radioparadise.com/rock-128'],
+        ['Classic Rock Florida', 'http://classic-rock-florida.ice.infomaniak.ch/classic-rock-florida-128.mp3'],
+        ['Rock Antenne', 'http://mp3channels.webradio.de/rockantenne']
+      ],
+      jazz: [
+        ['TSF Jazz (Paris)', 'https://playerservices.streamtheworld.com/api/livestream-redirect/TSFJAZZ.mp3'],
+        ['Jazz24', 'https://live.wostreaming.net/direct/ppm-jazz24mp3-ibc1'],
+        ['Radio Swiss Jazz', 'https://stream.srg-ssr.ch/m/rsj/mp3_128']
+      ],
+      chill: [
+        ['SomaFM Drone Zone', 'https://ice1.somafm.com/dronezone-128-mp3'],
+        ['Smooth Lounge', 'http://stream.smoothlounge.com:8000/stream'],
+        ['Chilltrax', 'https://icecast.omroep.nl/radio2-bb-mp3']
+      ],
+      pop: [
+        ['1.FM Absolute Pop', 'https://strm112.1.fm/abspop_64k.aac'],
+        ['BBC Radio 1', 'https://stream.live.vc.bbcmedia.co.uk/bbc_radio_one'],
+        ['NRJ France', 'http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3']
+      ],
+      lofi: [
+        ['LoFi HipHop Radio', 'https://stream.zeno.fm/rcm19ysp8ehvv'],
+        ['StudyBeats FM', 'https://studybeats.stream.laut.fm/studybeats'],
+        ['LoFi Chillhop Cafe', 'https://streaming.radio.co/s95fa8b0fa/listen']
+      ],
+      electro: [
+        ['DI.FM Trance', 'https://prem2.di.fm:80/trance'],
+        ['Ibiza Global Radio', 'http://streamingv2.shoutcast.com/ibizaglobalradio'],
+        ['Radio Record Trance', 'http://air.radiorecord.ru:805/trance_320']
+      ],
+      psy: [
+        ['Goa Trance Radio', 'https://cast4.my-control-panel.com/proxy/psygooaradio/stream'],
+        ['Schizoid Psychedelic', 'http://91.121.155.204:8000'],
+        ['Psyndora Psytrance', 'http://cast.psyndora.com:8002/live']
+      ]
+    };
 
+    const genreNames = {
+      rock: '🎸 Rock / Alternativo',
+      jazz: '🎷 Jazz',
+      chill: '🌿 Chill / Ambiente',
+      pop: '🎶 Pop Internacional',
+      lofi: '🎮 Lo-Fi / Study',
+      electro: '⚡ Electrónica / Dance',
+      psy: '🌀 Goa Trance / Psytrance'
+    };
+
+    const container = document.getElementById('radio-groups');
+    for (const [genre, stations] of Object.entries(radios)) {
+      const group = document.createElement('div');
+      group.className = 'radio-group';
+      group.dataset.genre = genre;
+      group.innerHTML = `<h2>${genreNames[genre]}</h2>`;
+      for (const [name, url] of stations) {
+        const card = document.createElement('div');
+        card.className = 'radio-card';
+        card.innerHTML = `<h3>${name}</h3><button onclick="handleClick(event, '${url}', '${name}')">🎧 Ouvir agora</button>`;
+        group.appendChild(card);
+      }
+      container.appendChild(group);
+    }
+
+    let webampInstance = null;
     const webamp = new Webamp({
       initialTracks: [],
-      initialSkin: {
-        url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/classic.wsz"
-      },
+      initialSkin: { url: "https://cdn.jsdelivr.net/npm/webamp@1.5.0/skins/classic.wsz" },
       enableButterchurn: true,
       __butterchurnOptions: {
         importButterchurn: () => Promise.resolve(window.butterchurn),
         getPresets: () => window.butterchurnPresets.getPresets(),
         butterchurnOpen: true,
-        getVisualizerCanvas: () => visualizerCanvas
+        getVisualizerCanvas: () => null
       },
       filePickers: []
     });
-
     webamp.renderWhenReady(document.getElementById("winamp")).then(() => {
       webampInstance = webamp;
     });
@@ -185,10 +218,8 @@
         alert("O player ainda não está pronto. Tenta novamente em 1 segundo.");
         return;
       }
-      nowPlayingText.textContent = `🎶 A tocar agora: ${name}`;
-      webampInstance.appendTracks([
-        { url, metaData: { artist: name, title: "ao Vivo" } }
-      ]).then(() => {
+      document.getElementById("now-playing").textContent = `🎶 A tocar agora: ${name}`;
+      webampInstance.appendTracks([{ url, metaData: { artist: name, title: "ao Vivo" } }]).then(() => {
         webampInstance.play();
       });
     }
@@ -199,20 +230,14 @@
       const genreTitle = document.getElementById("genre-title");
 
       groups.forEach(group => {
-        const groupGenre = group.getAttribute("data-genre");
-        group.style.display = (genre === "all" || groupGenre === genre) ? "block" : "none";
+        group.style.display = (genre === "all" || group.dataset.genre === genre) ? "block" : "none";
       });
 
       buttons.forEach(btn => btn.classList.remove("active"));
       const activeBtn = Array.from(buttons).find(btn => btn.onclick?.toString().includes(genre));
       if (activeBtn) activeBtn.classList.add("active");
 
-      let texto = "Todos os géneros";
-      if (genre === "rock") texto = "Rock / Alternativo";
-      else if (genre === "jazz") texto = "Jazz";
-      else if (genre === "chill") texto = "Chill / Ambiente";
-
-      genreTitle.textContent = `🎶 Estás a explorar: ${texto}`;
+      genreTitle.textContent = `🎶 Estás a explorar: ${genre === 'all' ? 'Todos os géneros' : genreNames[genre]}`;
     }
   </script>
 </body>
