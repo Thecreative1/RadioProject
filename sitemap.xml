@@ -4,28 +4,4 @@
     <loc>https://www.pulsarfm.eu/</loc>
     <priority>1.00</priority>
   </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/index.html</loc>
-    <priority>1.00</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/sitemap.html</loc>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/radio/</loc>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/js/</loc>
-    <priority>0.50</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/skins/</loc>
-    <priority>0.50</priority>
-  </url>
-  <url>
-    <loc>https://www.pulsarfm.eu/img/</loc>
-    <priority>0.50</priority>
-  </url>
 </urlset>
