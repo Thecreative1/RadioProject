@@ -3,8 +3,9 @@
   <url>
     <loc>https://www.pulsarfm.eu/</loc>
     <priority>1.00</priority>
-   <url>
-    <loc>https://www.pulsarfm.eu/index.html/</loc>
+  </url>
+  <url>
+    <loc>https://www.pulsarfm.eu/index.html</loc>
     <priority>1.00</priority>
   </url>
-  </urlset>
+</urlset>
