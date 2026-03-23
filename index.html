@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#031317">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.pulsarfm.eu/">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
   <!-- Google tag (gtag.js) -->
@@ -15,26 +17,26 @@
     gtag("config", "G-YRD1BYXB78");
   </script>
 
-  <title>Pulsar FM | Rádios Online com Webamp</title>
+  <title>Rádios Online Grátis com Visualizador Retro estilo Winamp | Pulsar FM</title>
   <meta
     name="description"
-    content="Sintoniza rádios internacionais grátis por género com um player retro inspirado no Winamp e visualizador Webamp."
+    content="Ouve rádios online grátis por género e revive a experiência clássica do Winamp com visualizações retro, player nostálgico e estações internacionais."
   >
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.pulsarfm.eu/">
-  <meta property="og:title" content="Pulsar FM | Rádios online com visual retro">
+  <meta property="og:title" content="Rádios Online Grátis com Visualizador Retro | Pulsar FM">
   <meta
     property="og:description"
-    content="Descobre rádios internacionais grátis, organizadas por género, com visualizador Webamp e seleção cuidada."
+    content="Descobre rádios online grátis por género e revive a energia dos antigos players estilo Winamp com visualizações retro no browser."
   >
   <meta property="og:image" content="https://www.pulsarfm.eu/img/pulsar.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Pulsar FM | Rádios online com visual retro">
+  <meta name="twitter:title" content="Rádios Online Grátis com Visualizador Retro | Pulsar FM">
   <meta
     name="twitter:description"
-    content="Sintoniza centenas de rádios internacionais grátis, organizadas por género."
+    content="Ouve rádios online grátis e revive a experiência retro estilo Winamp com visualizações e géneros para todos os gostos."
   >
   <meta name="twitter:image" content="https://www.pulsarfm.eu/img/pulsar.png">
 
@@ -53,11 +55,12 @@
       --shadow-card: 0 0 16px rgba(0, 204, 255, 0.18);
       --radius-panel: 24px;
       --radius-card: 16px;
-      --stack-height: 80px;
+      --stack-height: 300px;
     }
 
     html {
       color-scheme: dark;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -154,10 +157,10 @@
     }
 
     .intro {
-      max-width: 760px;
+      max-width: 820px;
       margin: 14px auto 10px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
       font-size: 1rem;
     }
 
@@ -230,6 +233,60 @@
     #player-status {
       color: var(--text-dim);
       font-size: 0.95rem;
+    }
+
+    .seo-blocks {
+      display: grid;
+      gap: 18px;
+      margin: 28px 0 32px;
+    }
+
+    .seo-card {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(0, 255, 204, 0.14);
+      border-radius: 18px;
+      padding: 22px 20px;
+      box-shadow: inset 0 0 8px rgba(0, 30, 35, 0.35);
+    }
+
+    .seo-card h2 {
+      margin: 0 0 12px;
+      color: var(--line-primary);
+      font-size: 1.2rem;
+    }
+
+    .seo-card p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .seo-card strong {
+      color: var(--text-primary);
+    }
+
+    .genre-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .genre-filter-link {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(0, 204, 255, 0.12);
+      border: 1px solid rgba(0, 204, 255, 0.25);
+      color: var(--line-secondary);
+      transition: all 0.2s ease;
+    }
+
+    .genre-filter-link:hover {
+      background: rgba(0, 204, 255, 0.2);
+      color: var(--line-primary);
+      transform: translateY(-1px);
     }
 
     .genre-columns {
@@ -402,11 +459,11 @@
   <main id="container">
     <header class="hero">
       <img class="hero-logo" src="img/pulsar.png" alt="Logótipo Pulsar FM">
-      <p class="eyebrow">Seleção de rádios com alma retro</p>
-      <h1>Pulsar FM</h1>
+      <p class="eyebrow">Rádios online grátis com alma retro</p>
+      <h1>Rádios online grátis com visualizador retro estilo Winamp</h1>
       <p class="intro">
-        Um catálogo de rádios internacionais organizado por género, com um player inspirado no
-        Winamp e visualizações para transformar a escuta numa experiência mais divertida.
+        Descobre rádios online internacionais por género e revive a magia dos antigos players de música
+        com uma experiência inspirada no Winamp: visualizações retro, ambiente nostálgico e escuta imediata no browser.
       </p>
       <p class="catalog-stats" id="catalog-stats"></p>
     </header>
@@ -419,6 +476,44 @@
       <p id="genre-title">🎶 Estás a explorar: Todos os géneros</p>
       <p id="now-playing">🎶 Nenhuma rádio em reprodução</p>
       <p id="player-status">A iniciar o player retro...</p>
+    </section>
+
+    <section class="seo-blocks" aria-label="Informação sobre a experiência Pulsar FM">
+      <article class="seo-card">
+        <h2>Uma experiência de rádio online diferente</h2>
+        <p>
+          O Pulsar FM não é apenas mais uma lista de rádios online. Aqui podes ouvir estações por género
+          enquanto revives a energia dos antigos players de música no computador, com um visualizador retro
+          inspirado no universo Winamp e uma navegação simples, rápida e direta no browser.
+        </p>
+      </article>
+
+      <article class="seo-card">
+        <h2>Para quem sente saudades do Winamp e das visualizações clássicas</h2>
+        <p>
+          Se usaste Winamp no passado, conheces bem aquela sensação: abrir o player, deixar a música correr
+          e ficar a olhar para as visualizações durante minutos. O Pulsar FM recupera essa nostalgia numa versão
+          moderna, leve e acessível, sem precisares de instalar programas antigos nem perder tempo com configurações.
+        </p>
+      </article>
+
+      <article class="seo-card">
+        <h2>Explora rádios online por género</h2>
+        <p>
+          Escolhe o ambiente certo para cada momento: rádios chill para relaxar, psytrance para energia,
+          study e lo-fi para trabalhar, jazz para concentração, pop para o dia a dia e rock para quem gosta
+          de algo mais intenso. Tudo reunido num só sítio, com visual retro e escuta imediata.
+        </p>
+
+        <div class="genre-links">
+          <a class="genre-filter-link" href="#radio-groups" data-genre="rock">Rádios Rock</a>
+          <a class="genre-filter-link" href="#radio-groups" data-genre="jazz">Rádios Jazz</a>
+          <a class="genre-filter-link" href="#radio-groups" data-genre="chill">Rádios Chill</a>
+          <a class="genre-filter-link" href="#radio-groups" data-genre="study">Rádios para Estudar</a>
+          <a class="genre-filter-link" href="#radio-groups" data-genre="electro">Rádios Electrónicas</a>
+          <a class="genre-filter-link" href="#radio-groups" data-genre="psy">Rádios Psytrance</a>
+        </div>
+      </article>
     </section>
 
     <section class="genre-columns" id="radio-groups" aria-label="Lista de rádios por género"></section>
@@ -631,6 +726,17 @@
       }
 
       filterRadios(button.dataset.genre);
+    });
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest(".genre-filter-link[data-genre]");
+      if (!link) {
+        return;
+      }
+
+      event.preventDefault();
+      filterRadios(link.dataset.genre);
+      radioGroups.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
     radioGroups.addEventListener("click", (event) => {
