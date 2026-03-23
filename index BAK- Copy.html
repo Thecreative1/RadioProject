@@ -53,7 +53,7 @@
       --shadow-card: 0 0 16px rgba(0, 204, 255, 0.18);
       --radius-panel: 24px;
       --radius-card: 16px;
-      --stack-height: 80px;
+      --stack-height: 360px;
     }
 
     html {
@@ -63,7 +63,7 @@
     body {
       min-height: 100vh;
       margin: 0;
-      padding: 8px 16px 40px;
+      padding: 18px 16px 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -103,7 +103,7 @@
 
     #winamp > div {
       position: fixed !important;
-      top: 6px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
@@ -122,7 +122,6 @@
         0 0 50px rgba(0, 255, 204, 0.12),
         inset 0 0 8px rgba(0, 34, 34, 0.6);
       backdrop-filter: blur(8px);
-      margin-top: -8px;
     }
 
     .hero {
@@ -351,24 +350,22 @@
 
     @media (max-width: 820px) {
       :root {
-        --stack-height: 250px;
+        --stack-height: 300px;
       }
 
       #winamp > div {
-        top: 4px;
         transform: translateX(-50%) scale(0.82);
         transform-origin: top center;
       }
 
       #container {
         padding: 28px 18px;
-        margin-top: -6px;
       }
     }
 
     @media (max-width: 560px) {
       :root {
-        --stack-height: 190px;
+        --stack-height: 245px;
       }
 
       body {
@@ -376,12 +373,7 @@
       }
 
       #winamp > div {
-        top: 2px;
         transform: translateX(-50%) scale(0.66);
-      }
-
-      #container {
-        margin-top: -4px;
       }
 
       .group-heading {
